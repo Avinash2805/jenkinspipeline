@@ -2,8 +2,8 @@ pipelinemazonaws.com {
     agent any
     
     parameters { 
-         string(name: 'tomcat_dev', defaultValue: '192.168.93.132', description: 'Staging Server')
-         string(name: 'tomcat_prod', defaultValue: '192.168.93.130', description: 'Production Server')
+         string(name: 'tomcat_dev', defaultValue: 'ec2-18-207-228-114.compute-1.amazonaws.com', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: 'ec2-184-72-116-197.compute-1.amazonaws.com', description: 'Production Server')
     } 
 
     triggers {
@@ -27,13 +27,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        sh "scp   **/target/*.war angad@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
+                        sh "scp -i /home/angad/angad.pem **/target/*.war ubuntu@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        sh "scp  **/target/*.war satish@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
+                        sh "scp -i /home/angad/angad.pem **/target/*.war ubuntu@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
                     }
                 }
             }
