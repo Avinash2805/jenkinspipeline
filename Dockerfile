@@ -1,6 +1,6 @@
 FROM tomcat:8.0
 
-ADD /var/lib/jenkins/workspace/New Pipeline Job/webapp/target/webapp/terget/*.war /usr/local/tomcat/webapps/
+ADD /var/lib/jenkins/workspace/New Pipeline Job/webapp/target/webapp.war /usr/local/tomcat/webapps/
 
 EXPOSE 8080
 
